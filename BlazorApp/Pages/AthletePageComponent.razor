@@ -1,0 +1,56 @@
+﻿@page "/athletepage/{AthleteId}"
+
+@inject MVC.Repository.IEmployeeRepository<Athlete> _athleteRepository
+@inject NavigationManager _navManager
+
+<h3>AthletePageComponent</h3>
+
+div: zdjecie atlety, obok imie, nazwisko, specjalizacja sportowa
+
+@if (Athlete != null)
+{
+    @*<EditForm Model="Athlete" OnValidSubmit="OnValidSumit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>*@
+
+    <div class="form-group">
+        <label for="name">First Name</label>
+        <InputText id="first-name" @bind-Value="Athlete.FirstName" class="form-control"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="last-name">Last Name</label>
+        <InputText id="name" @bind-Value="Athlete.LastName" class="form-control"></InputText>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
+
+    @*</EditForm>*@
+}
+
+@code {
+    [Parameter]
+    public string AthleteId { get; set; }
+
+    private Athlete Athlete;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Athlete = new Athlete();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Guid.TryParse(this.AthleteId, out Guid iAthleteId))
+        {
+            Athlete = _athleteRepository.FindFirstByCondition(iAthleteId);
+        }
+    }
+
+    private void OnCancel()
+    {
+        _navManager.NavigateTo("/trainers");
+    }
+}
