@@ -1,32 +1,58 @@
 ﻿@page "/athletepage/{AthleteId}"
 
-@inject MVC.Repository.IEmployeeRepository<Athlete> _athleteRepository
+@inject MVC.Repository.IAthleteRepository _athleteRepository
 @inject NavigationManager _navManager
 
-<h3>AthletePageComponent</h3>
+<h3>Athlete</h3>
 
-div: zdjecie atlety, obok imie, nazwisko, specjalizacja sportowa
 
 @if (Athlete != null)
 {
-    @*<EditForm Model="Athlete" OnValidSubmit="OnValidSumit">
-        <DataAnnotationsValidator></DataAnnotationsValidator>
-        <ValidationSummary></ValidationSummary>*@
-
-    <div class="form-group">
-        <label for="name">First Name</label>
-        <InputText id="first-name" @bind-Value="Athlete.FirstName" class="form-control"></InputText>
-    </div>
-    <div class="form-group">
-        <label for="last-name">Last Name</label>
-        <InputText id="name" @bind-Value="Athlete.LastName" class="form-control"></InputText>
+    <div>
+        picture foteczka
+        @Athlete.FirstName  imię
+        @Athlete.LastName   nazwisko
+        @Athlete.LastName   dziedzina: skoczek
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="submit" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
-
-    @*</EditForm>*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Competition</th>
+                <th>Score</th>
+                <th>Mark</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var competition in Athlete.Competition)
+            {
+                <tr>
+                    <td>@competition.Term</td>
+                    <td>@competition.Name</td>
+                    <td>@maxCompetitionScoreResult(competition.Id)</td>
+                    <td>@maxCompetitionMarkResult(competition.Id)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Competition</th>
+                <th>Score</th>
+                <th>Mark</th>
+            </tr>
+        </thead>
+    </table>
+}
+
+<br />
+<button type="submit" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
 
 @code {
     [Parameter]
@@ -37,7 +63,6 @@ div: zdjecie atlety, obok imie, nazwisko, specjalizacja sportowa
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Athlete = new Athlete();
     }
 
     protected override void OnParametersSet()
@@ -49,8 +74,20 @@ div: zdjecie atlety, obok imie, nazwisko, specjalizacja sportowa
         }
     }
 
+    private string maxCompetitionScoreResult(Guid competitionId)
+    {
+       var scores = _athleteRepository.GetScores(Athlete.Id, competitionId);
+       return scores.Max().ToString();
+    }
+
+    private string maxCompetitionMarkResult(Guid competitionId)
+    {
+        var marks = _athleteRepository.GetMarks(Athlete.Id, competitionId);
+        return marks.Max().ToString();
+    }
+
     private void OnCancel()
     {
-        _navManager.NavigateTo("/trainers");
+        _navManager.NavigateTo("/trainerhome");
     }
 }

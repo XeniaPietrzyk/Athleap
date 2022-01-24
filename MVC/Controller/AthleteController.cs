@@ -53,11 +53,11 @@ namespace MVC.Controller
             }
         }
 
-        public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid id)
+        public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid id, Guid competitnionId)
         {
             try
             {
-                return _athleteRepository.GetCompetitionResultsByCompetition(id);
+                return _athleteRepository.GetCompetitionResultsByCompetition(id, competitnionId);
             }
             catch (Exception)
             {

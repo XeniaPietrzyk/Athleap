@@ -6,6 +6,8 @@ namespace MVC.Repository
 {
     public interface IAthleteRepository : IEmployeeRepository<Athlete>
     {
-        IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid id);
+        IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid athleteId, Guid competitionId);
+        IEnumerable<double> GetScores(Guid athleteId, Guid competitionId);
+        IEnumerable<double> GetMarks(Guid athleteId, Guid competitionId);
     }
 }
