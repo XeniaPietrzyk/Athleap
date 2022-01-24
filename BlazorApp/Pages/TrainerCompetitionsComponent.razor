@@ -1,0 +1,52 @@
+﻿@page "/trainerhome"
+
+@inject MVC.Repository.IBaseRepository<Athlete> _athleteRepository
+@inject NavigationManager _navManager
+
+<h3>TrainerHomeComponent</h3>
+
+<----> header: TWOJ KLUB: NAZWA,  OPIS </---->
+
+@if (athletes != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var athlete in athletes)
+            {
+                <tr>
+                    <td>@athlete.FirstName</td>
+                    <td>@athlete.LastName</td>
+                    <td><button type="button" @onclick="@(() => Show(athlete))" class="btn btn-link">Show</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Athlete> athletes;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        athletes = _athleteRepository.GetAll()?.ToList();
+    }
+
+    private void Show(Athlete athlete)
+    {
+        _navManager.NavigateTo($"/athletepage/{athlete.Id}");
+    }
+
+}

@@ -32,7 +32,7 @@ namespace BlazorApp
 
             //add services context by DI
             //services.AddTransient<IEmployeeRepository<Trainer>, TrainersIMRepository>();
-            services.AddTransient<IEmployeeRepository<Athlete>, AthletesIMRepository>();
+            services.AddTransient<IBaseRepository<Athlete>, AthletesIMRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,6 @@
 
 namespace MVC.Repository
 {
-    public interface ITrainerRepository : IEmployeeRepository<Trainer>
+    public interface ITrainerRepository : IBaseRepository<Trainer>
     { }
 }

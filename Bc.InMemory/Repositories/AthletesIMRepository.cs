@@ -15,8 +15,8 @@ namespace Db.InMemory
             {
                 athletes = new List<Athlete>()
                 {
-                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Dariusz", LastName = "Bicepsik", eMail = "darek.bicepsik@athlead.com", Type = MVC.Helpers.EmployeeType.athlete},
-                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Ewelina", LastName = "Skoczna", eMail = "ewelina.skoczna@athlead.com", Type = MVC.Helpers.EmployeeType.athlete}
+                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Dariusz", LastName = "Bicepsik", eMail = "darek.bicepsik@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "strongman"},
+                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Ewelina", LastName = "Skoczna", eMail = "ewelina.skoczna@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "tyczkarka"}
                 };
             }
         }
