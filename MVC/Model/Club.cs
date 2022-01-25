@@ -17,6 +17,8 @@ namespace MVC.Model
         [Required(ErrorMessage = "Club name is required")]
         public string Name { get; set; }
         public string Description { get; set; }
+
+        //navigation properties for EFcore
         public Trainer Trainer {get;set;}
         public List<Athlete> Athletes { get; set; }
 

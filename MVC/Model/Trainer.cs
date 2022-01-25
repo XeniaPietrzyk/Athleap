@@ -10,7 +10,8 @@ namespace MVC.Model
     [Table("Trainer")]
     public class Trainer : Employee
     {
+        //navigation properties for EFcore
         public List<Athlete> Athletes { get; set; }
-        public Club Club { get; set; }
+        public Competition Competitions { get; set; }
     }
 }

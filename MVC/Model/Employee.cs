@@ -26,6 +26,7 @@ namespace MVC.Model
         public EmployeeType Type { get; set; }
 
         public List<Competition> Competition { get; set; }
+        public Club Club { get; set; }
 
         public User User { get; set; }
 

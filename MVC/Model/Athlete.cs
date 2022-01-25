@@ -11,6 +11,8 @@ namespace MVC.Model
     public class Athlete : Employee
     {
         public string Area { get; set; }
+
+        //navigation properties for EFcore
         public Trainer Trainer { get; set; }        
         public List<CompetitionResults> CompetitionResults { get; set; }
     }

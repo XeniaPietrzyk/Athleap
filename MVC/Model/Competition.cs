@@ -19,7 +19,9 @@ namespace MVC.Model
         [Required(ErrorMessage = "Description is required.")]
         public string Description { get; set; }
 
+        //navigation properties for EFcore
         public List<Athlete> Athletes { get; set; }
+        public Trainer Trainer { get; set; }
 
     }
 }
