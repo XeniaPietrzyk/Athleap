@@ -1,7 +1,6 @@
 ﻿using Db.SQL.Configuration;
 using Microsoft.EntityFrameworkCore;
 using MVC.Model;
-using System;
 
 namespace Db.SQL
 {
@@ -12,17 +11,21 @@ namespace Db.SQL
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {            
+        {
             builder.ApplyConfiguration(new TrainerConfiguration());
-            //builder.ApplyConfiguration(new )
+            builder.ApplyConfiguration(new AthleteConfiguration());
+            builder.ApplyConfiguration(new CompetitionConfiguration());
+            builder.ApplyConfiguration(new ClubConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            //TODO:czy robic tez CompetitionResults i Messages?
         }
 
         public DbSet<Trainer> Trainers { get; set; }
-        public DbSet<Athlete> Athletes {get; set;}
-        public DbSet<Club> Clubs {get; set;}
-        public DbSet<User> Users {get; set;}
-        public DbSet<Competition> Competions {get; set;}
-        public DbSet<CompetitionResults> CompetitionResults { get; set;}
-        public DbSet<Message> Messages {get; set;}
+        public DbSet<Athlete> Athletes { get; set; }
+        public DbSet<Club> Clubs { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Competition> Competions { get; set; }
+        public DbSet<CompetitionResults> CompetitionResults { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

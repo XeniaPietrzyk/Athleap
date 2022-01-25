@@ -1,6 +1,8 @@
 using Db.InMemory;
+using Db.SQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,12 @@ namespace BlazorApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             //services.AddSingleton<WeatherForecastService>();
+
+            services.AddDbContext<MssqlDbContext>(options=>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                //TODO: Add-migration 
+            });
 
             //add db in-memory context by DependencyInjection
             //services.AddScoped<ITrainerRepository, TrainersIMRepository>();
