@@ -1,6 +1,6 @@
 ﻿@page "/athletepage/{AthleteId}"
 
-@inject MVC.Repository.IAthleteRepository _athleteRepository
+@inject MVC.Repository.Interface.IAthleteRepository _athleteRepository
 @inject NavigationManager _navManager
 
 <h3>Athlete</h3>
@@ -20,19 +20,23 @@
             <tr>
                 <th>Date</th>
                 <th>Competition</th>
-                <th>Score</th>
+                <th>Score 1</th>
+                <th>Score 2</th>
+                <th>Score 3</th>
                 <th>Mark</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var competition in Athlete.Competition)
             {
-                <tr>
-                    <td>@competition.Term</td>
-                    <td>@competition.Name</td>
-                    <td>@maxCompetitionScoreResult(competition.Id)</td>
-                    <td>@maxCompetitionMarkResult(competition.Id)</td>
-                </tr>
+            <tr>
+                <td>@competition.Term</td>
+                <td>@competition.Name</td>
+                <td>@maxCompetitionScoreResult(competition.Id, 0)</td>
+                <td>@maxCompetitionScoreResult(competition.Id, 1)</td>
+                <td>@maxCompetitionScoreResult(competition.Id, 2)</td>
+                <td>@maxCompetitionMarkResult(competition.Id, 0)</td>
+            </tr>
             }
         </tbody>
     </table>
@@ -74,16 +78,17 @@ else
         }
     }
 
-    private string maxCompetitionScoreResult(Guid competitionId)
+    private string maxCompetitionScoreResult(Guid competitionId, int num)
     {
-       var scores = _athleteRepository.GetScores(Athlete.Id, competitionId);
-       return scores.Max().ToString();
+        var scores = _athleteRepository.GetScores(Athlete.Id, competitionId);        
+        return scores.ToArray()[num].ToString();
     }
 
-    private string maxCompetitionMarkResult(Guid competitionId)
+    private string maxCompetitionMarkResult(Guid competitionId, int num)
     {
+        //TODO: ocena ma byc tylko jedna dla jednego competition
         var marks = _athleteRepository.GetMarks(Athlete.Id, competitionId);
-        return marks.Max().ToString();
+        return marks.ToArray()[num].ToString();
     }
 
     private void OnCancel()

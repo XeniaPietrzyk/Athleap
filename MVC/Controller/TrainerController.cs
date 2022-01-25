@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC.Model;
-using MVC.Repository;
+using MVC.Repository.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MVC.Controller
 {
@@ -67,7 +66,7 @@ namespace MVC.Controller
         {
             try
             {
-               _trainerRepository.Update(trainer);
+                _trainerRepository.Update(trainer);
             }
             catch (Exception)
             {

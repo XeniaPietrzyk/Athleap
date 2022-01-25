@@ -14,6 +14,7 @@ namespace Db.SQL
         protected override void OnModelCreating(ModelBuilder builder)
         {            
             builder.ApplyConfiguration(new TrainerConfiguration());
+            //builder.ApplyConfiguration(new )
         }
 
         public DbSet<Trainer> Trainerss { get; set; }

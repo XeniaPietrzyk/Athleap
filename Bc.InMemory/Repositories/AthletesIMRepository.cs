@@ -1,5 +1,5 @@
 ﻿using MVC.Model;
-using MVC.Repository;
+using MVC.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,11 @@ namespace Db.InMemory
         {
             if (athletes == null)
             {
+                var walkizkrowami = new List<Competition>();
+                walkizkrowami.Add(new Competition { Id = Guid.NewGuid(), Name = "Siła w łapie", Description = "Kto podnisie najwięcej krów w jak najkrótszym czasie.", Term = DateTime.Now });
                 athletes = new List<Athlete>()
                 {
-                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Dariusz", LastName = "Bicepsik", eMail = "darek.bicepsik@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "strongman"},
+                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Dariusz", LastName = "Bicepsik", eMail = "darek.bicepsik@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "strongman", Competition = walkizkrowami},
                     new Athlete{ Id = Guid.NewGuid(), FirstName = "Ewelina", LastName = "Skoczna", eMail = "ewelina.skoczna@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "tyczkarka"}
                 };
             }
@@ -25,7 +27,7 @@ namespace Db.InMemory
         {
             if (athletes.Any(x => x.Id.Equals(entity.Id))) return;
             entity.Id = Guid.NewGuid();
-            entity.Type = MVC.Helpers.EmployeeType.trainer;
+            entity.Type = MVC.Helpers.EmployeeType.athlete;
             athletes.Add(entity);
         }
 
@@ -52,7 +54,6 @@ namespace Db.InMemory
         public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid athleteId, Guid competitionId)
         {
             var athlete = FindFirstByCondition(athleteId);
-            var competition = athlete.Competition;
             var competitionResults = athlete.CompetitionResults?.FindAll(x => x.CompetitionId == competitionId);
             return competitionResults;
         }
@@ -63,7 +64,7 @@ namespace Db.InMemory
             var scores = new List<double>();
             foreach (var item in competitionResults)
             {
-               scores.Add(item.Score);
+                scores.Add(item.Score);
             }
 
             return scores;
@@ -86,6 +87,11 @@ namespace Db.InMemory
             var updateEntity = FindFirstByCondition(entity.Id);
             if (updateEntity != null) updateEntity = entity;
             return FindFirstByCondition(updateEntity.Id);
+        }
+
+        public IEnumerable<Athlete> GetAllByCompetitionId(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

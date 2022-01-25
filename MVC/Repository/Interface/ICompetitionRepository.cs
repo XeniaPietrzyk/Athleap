@@ -9,6 +9,7 @@ namespace MVC.Repository.Interface
 {
     public interface ICompetitionRepository : IBaseRepository<Competition>
     {
-
+        List<Competition> GetAllByAthleteId(Guid id);
+        Competition GetByAthleteId(Guid athleteId, Guid id);
     }
 }

@@ -1,37 +1,46 @@
-﻿@page "/trainerhome"
+﻿@page "/trainercompetitions"
 
-@inject MVC.Repository.IBaseRepository<Athlete> _athleteRepository
+@inject MVC.Repository.Interface.IBaseRepository<Competition> _competitionRepository
 @inject NavigationManager _navManager
 
 <h3>TrainerHomeComponent</h3>
 
 <----> header: TWOJ KLUB: NAZWA,  OPIS </---->
 
-@if (athletes != null)
+@if (competitions != null)
 {
     <table class="table">
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var athlete in athletes)
+            @foreach (var competition in competitions)
             {
-                <tr>
-                    <td>@athlete.FirstName</td>
-                    <td>@athlete.LastName</td>
-                    <td><button type="button" @onclick="@(() => Show(athlete))" class="btn btn-link">Show</button></td>
-                </tr>
+            <tr>
+                <td>@competition.Term</td>
+                <td>@competition.Name</td>
+                <td>@competition.Description</td>
+                <td><button type="button" @onclick="@(() => Show(competition))" class="btn btn-link">Show</button></td>
+                <td><button type="button" @onclick="@(() => Edit(competition))" class="btn btn-link">Edit</button></td>
+                <td><button type="button" @onclick="@(() => Delete(competition))" class="btn btn-link">Delete</button></td>
+
+            </tr>
             }
         </tbody>
     </table>
 }
+<br/>
+<button type="button" @onclick="Add" class="btn btn-primary">Add New</button>
 
 @code {
-    private List<Athlete> athletes;
+    private List<Competition> competitions;
 
     protected override void OnInitialized()
     {
@@ -41,12 +50,27 @@
 
     private void LoadData()
     {
-        athletes = _athleteRepository.GetAll()?.ToList();
+        competitions = _competitionRepository.GetAll()?.ToList();
     }
 
-    private void Show(Athlete athlete)
+    private void Add()
     {
-        _navManager.NavigateTo($"/athletepage/{athlete.Id}");
+        _navManager.NavigateTo($"/addcompetition");
+    }
+
+    private void Show(Competition competition)
+    {
+        _navManager.NavigateTo($"/competitionpage/{competition.Id}");
+    }
+
+    private void Edit(Competition competition)
+        {
+        _navManager.NavigateTo($"/editcompetition/{competition.Id}");
+        }
+
+    private void Delete(Competition competition)
+    {
+        _competitionRepository.Delete(competition.Id);
     }
 
 }

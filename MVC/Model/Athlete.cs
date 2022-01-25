@@ -11,8 +11,7 @@ namespace MVC.Model
     public class Athlete : Employee
     {
         public string Area { get; set; }
-        public Trainer Trainer { get; set; }
-        public List<Competition> Competition { get; set; }
+        public Trainer Trainer { get; set; }        
         public List<CompetitionResults> CompetitionResults { get; set; }
     }
 }

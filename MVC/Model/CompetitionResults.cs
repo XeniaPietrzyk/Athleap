@@ -11,4 +11,4 @@ namespace MVC.Model
         public double Score { get; set; }
         public int Mark { get; set; }
     }
-}
+} 

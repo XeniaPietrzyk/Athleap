@@ -1,0 +1,56 @@
+﻿@page "/addcompetition"
+
+@inject MVC.Repository.Interface.ICompetitionRepository _competitionRepository
+@inject MVC.Repository.Interface.IAthleteRepository _athlete
+@inject NavigationManager _navManager
+
+<h3>Add Competition</h3>
+
+@if (competition != null)
+{
+    <EditForm Model="competition" OnValidSubmit="OnValidSumit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <div class="form-group">
+            <label for="name">Date</label>
+            <InputText id="first-name" @bind-Value="tempDate" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="last-name">Name</label>
+            <InputText id="name" @bind-Value="competition.Name" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <label for="name">Description</label>
+            <InputText id="email" @bind-Value="competition.Description" class="form-control"></InputText>
+        </div>
+        <button type="submit" class="btn btn-primary" @onclick="OnValidSumit">Save</button>
+        <button type="submit" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
+
+    </EditForm>
+}
+
+@code {
+
+    private Competition competition;
+    private string tempDate;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        competition = new Competition();
+    }
+
+    private void OnValidSumit()
+    {
+        competition.Term = DateTime.Parse(tempDate);
+        _competitionRepository.Add(competition);
+        _navManager.NavigateTo("/trainercompetitions");
+    }
+
+    private void OnCancel()
+    {
+        _navManager.NavigateTo("/trainercompetitions");
+    }
+}

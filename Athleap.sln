@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{C57E001F-4850-486B-A7C5-191058213582}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{C57E001F-4850-486B-A7C5-191058213582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC", "MVC\MVC.csproj", "{2E0D5EDD-7EA6-48A3-AB2A-104D160BF421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "MVC\MVC.csproj", "{2E0D5EDD-7EA6-48A3-AB2A-104D160BF421}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db.InMemory", "Bc.InMemory\Db.InMemory.csproj", "{D5949605-20E4-434A-B58D-B166B9DB1191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Db.InMemory", "Bc.InMemory\Db.InMemory.csproj", "{D5949605-20E4-434A-B58D-B166B9DB1191}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

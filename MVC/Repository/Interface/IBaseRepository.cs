@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace MVC.Repository
+namespace MVC.Repository.Interface
 {
     public interface IBaseRepository<T>
     {
