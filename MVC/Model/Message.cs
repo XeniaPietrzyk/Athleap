@@ -11,7 +11,7 @@ namespace MVC.Model
         public Guid Id { get; set; }
         public string Content { get; set; }
         public bool Status { get; set; }
-        public Employee Sender { get; set; }
-        public Employee Receiver { get; set; }
+        public Guid SenderId { get; set; }
+        public Guid ReceiverId { get; set; }
     }
 }

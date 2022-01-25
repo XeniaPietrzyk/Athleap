@@ -8,6 +8,6 @@ namespace MVC.Helpers
 {
     public class EmailValidation
     {
-
+        //TODO: walidacja maila
     }
 }
