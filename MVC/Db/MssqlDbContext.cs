@@ -17,6 +17,12 @@ namespace Db.SQL
             //builder.ApplyConfiguration(new )
         }
 
-        public DbSet<Trainer> Trainerss { get; set; }
+        public DbSet<Trainer> Trainers { get; set; }
+        public DbSet<Athlete> Athletes {get; set;}
+        public DbSet<Club> Clubs {get; set;}
+        public DbSet<User> Users {get; set;}
+        public DbSet<Competition> Compettions {get; set;}
+        public DbSet<CompetitionResults> CompetitionResults { get; set;}
+        public DbSet<Message> Messages {get; set;}
     }
 }
