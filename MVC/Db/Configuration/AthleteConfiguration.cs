@@ -17,14 +17,6 @@ namespace Db.SQL.Configuration
                 LastName = "Skoczna",
                 eMail = "ewelinaskoczna@athlead.com",
                 Type = MVC.Helpers.EmployeeType.athlete
-            },
-            new Athlete
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Dawid",
-                LastName = "Bicepsik",
-                eMail = "dawidbicepsik@athlead.com",
-                Type = MVC.Helpers.EmployeeType.athlete
             }
         };
 
@@ -44,8 +36,7 @@ namespace Db.SQL.Configuration
                 .HasOne(a => a.Club)
                 .WithMany(c => c.Athletes)
                 .HasForeignKey(k => k.Id);
-            //messages
-            
+
             builder.HasData(collection);
         }
     }

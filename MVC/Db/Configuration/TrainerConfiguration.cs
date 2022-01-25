@@ -13,14 +13,6 @@ namespace Db.SQL.Configuration
             new Trainer
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Renata",
-                LastName = "Bieżnia",
-                eMail = "renatabieznia@athlead.com",
-                Type = MVC.Helpers.EmployeeType.trainer
-            },
-            new Trainer
-            {
-                Id = Guid.NewGuid(),
                 FirstName = "Jan",
                 LastName = "Ciężarek",
                 eMail = "janciezarek@athlead.com",
@@ -44,9 +36,6 @@ namespace Db.SQL.Configuration
             builder
                 .HasOne(t => t.Club)
                 .WithOne(c => c.Trainer);
-            //builder
-            //    .HasMany(t => t.Messages)
-            //    .HasOne(m => m.);
 
             builder.HasData(collection);
         }
