@@ -13,9 +13,9 @@ namespace Db.SQL.Configuration
             new Trainer
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Ewelina",
+                FirstName = "Renata",
                 LastName = "Bieżnia",
-                eMail = "ewelinabieznia@athlead.com",
+                eMail = "renatabieznia@athlead.com",
                 Type = MVC.Helpers.EmployeeType.trainer
             },
             new Trainer
@@ -32,11 +32,20 @@ namespace Db.SQL.Configuration
         {
             builder.ToTable("Trainer");
 
-            //trener ma wielu zawodnikow ale zawodnik ma jednego trenera
+            //trener ma wielu zawodnikow, ktorzy maja jednego trenera
             builder
                 .HasMany(t => t.Athletes)
-                .WithOne(a=>a.Trainer);
-            
+                .WithOne(a => a.Trainer);
+            builder
+                .HasMany(c => c.Competition)
+                .WithOne(a => a.Trainer);
+            builder
+                .HasOne(t => t.Club)
+                .WithOne(c => c.Trainer);
+            //builder
+            //    .HasMany(t => t.Messages)
+            //    .HasOne(m => m.);
+
             builder.HasData(collection);
         }
     }
