@@ -35,7 +35,16 @@ namespace Db.SQL.Configuration
             //zawodnik ma jednego trenera ale trener ma wielu zawodnikow
             builder
                 .HasOne(a => a.Trainer)
-                .WithMany(t=>t.Athletes);
+                .WithMany(t=>t.Athletes)
+                .HasForeignKey(k=>k.Id);
+            builder
+                .HasMany(a => a.Competition)
+                .WithMany(c => c.Athletes);
+            builder
+                .HasOne(a => a.Club)
+                .WithMany(c => c.Athletes)
+                .HasForeignKey(k => k.Id);
+            //messages
             
             builder.HasData(collection);
         }
