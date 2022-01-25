@@ -1,7 +1,7 @@
 ﻿using MVC.Model;
 
-namespace MVC.Repository
+namespace MVC.Repository.Interface
 {
-    public interface ITrainerRepository : IEmployeeRepository<Trainer>
+    public interface ITrainerRepository : IBaseRepository<Trainer>
     { }
 }

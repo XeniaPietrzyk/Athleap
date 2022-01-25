@@ -1,0 +1,92 @@
+﻿@page "/editcompetition/{competitionId}"
+
+@inject MVC.Repository.Interface.ICompetitionRepository _competitionRepository
+@inject NavigationManager _navManager
+
+<h3>EditCompetitionComponent</h3>
+
+
+@if (Competition != null)
+{
+    <div>
+        @Competition.Name  imię
+        @Competition.Description   nazwisko
+        @Competition.Term   dziedzina: skoczek
+    </div>
+
+    <EditForm Model="Competition" OnValidSubmit="OnValidSumit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Athlete</th>
+                    <th>Score 1</th>
+                    <th>Score 2</th>
+                    <th>Score 3</th>
+                    <th>Mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var athlete in Competition.Athletes)
+                {
+                    <tr>
+                        <td>@athlete.FirstName @athlete.LastName</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+        else
+        {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Competition</th>
+                    <th>Score</th>
+                    <th>Mark</th>
+                </tr>
+            </thead>
+        </table>
+    </EditForm>
+}
+
+<br />
+<button type="submit" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
+
+@code {
+    [Parameter]
+    public string CompetitionId { get; set; }
+
+    private Competition Competition;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Guid.TryParse(this.CompetitionId, out Guid iCompetitionId))
+        {
+            // CompetitionId = _competitionRepository.FindFirstByCondition(iCompetitionId);
+        }
+    }
+
+    private void OnValidSumit()
+    {
+        _competitionRepository.Update(this.Competition);
+        _navManager.NavigateTo("/trainers");
+    }
+
+    private void OnCancel()
+    {
+        _navManager.NavigateTo("/trainercompetitions");
+    }
+}

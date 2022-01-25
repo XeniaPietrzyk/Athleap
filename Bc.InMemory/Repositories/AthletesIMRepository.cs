@@ -1,9 +1,8 @@
 ﻿using MVC.Model;
-using MVC.Repository;
+using MVC.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Db.InMemory
 {
@@ -12,20 +11,23 @@ namespace Db.InMemory
         private List<Athlete> athletes;
         public AthletesIMRepository()
         {
-            //Default trainers
-            athletes = new List<Athlete>()
+            if (athletes == null)
             {
-                new Athlete{ Id = Guid.NewGuid(), FirstName = "Dariusz", LastName = "Bicepsik", eMail = "darek.bicepsik@athlead.com", Type = MVC.Helpers.EmployeeType.athlete},
-                new Athlete{ Id = Guid.NewGuid(), FirstName = "Ewelina", LastName = "Skoczna", eMail = "ewelina.skoczna@athlead.com", Type = MVC.Helpers.EmployeeType.athlete}
-
-            };
+                var walkizkrowami = new List<Competition>();
+                walkizkrowami.Add(new Competition { Id = Guid.NewGuid(), Name = "Siła w łapie", Description = "Kto podnisie najwięcej krów w jak najkrótszym czasie.", Term = DateTime.Now });
+                athletes = new List<Athlete>()
+                {
+                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Dariusz", LastName = "Bicepsik", eMail = "darek.bicepsik@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "strongman", Competition = walkizkrowami},
+                    new Athlete{ Id = Guid.NewGuid(), FirstName = "Ewelina", LastName = "Skoczna", eMail = "ewelina.skoczna@athlead.com", Type = MVC.Helpers.EmployeeType.athlete, Area = "tyczkarka"}
+                };
+            }
         }
 
         public void Add(Athlete entity)
         {
-            if (athletes.Any(x => x.Id.Equals(entity.Id))) return;            
+            if (athletes.Any(x => x.Id.Equals(entity.Id))) return;
             entity.Id = Guid.NewGuid();
-            entity.Type = MVC.Helpers.EmployeeType.trainer;
+            entity.Type = MVC.Helpers.EmployeeType.athlete;
             athletes.Add(entity);
         }
 
@@ -36,7 +38,7 @@ namespace Db.InMemory
 
         public Athlete FindFirstByCondition(Guid id)
         {
-            return athletes?.FirstOrDefault(x=>x.Id==id);
+            return athletes?.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<Athlete> GetAll()
@@ -49,9 +51,35 @@ namespace Db.InMemory
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid id)
+        public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid athleteId, Guid competitionId)
         {
-            throw new NotImplementedException();
+            var athlete = FindFirstByCondition(athleteId);
+            var competitionResults = athlete.CompetitionResults?.FindAll(x => x.CompetitionId == competitionId);
+            return competitionResults;
+        }
+
+        public IEnumerable<double> GetScores(Guid athleteId, Guid competitionId)
+        {
+            var competitionResults = GetCompetitionResultsByCompetition(athleteId, competitionId);
+            var scores = new List<double>();
+            foreach (var item in competitionResults)
+            {
+                scores.Add(item.Score);
+            }
+
+            return scores;
+        }
+
+        public IEnumerable<double> GetMarks(Guid athleteId, Guid competitionId)
+        {
+            var competitionResults = GetCompetitionResultsByCompetition(athleteId, competitionId);
+            var marks = new List<double>();
+            foreach (var item in competitionResults)
+            {
+                marks.Add(item.Mark);
+            }
+
+            return marks;
         }
 
         public Athlete Update(Athlete entity)
@@ -59,6 +87,11 @@ namespace Db.InMemory
             var updateEntity = FindFirstByCondition(entity.Id);
             if (updateEntity != null) updateEntity = entity;
             return FindFirstByCondition(updateEntity.Id);
+        }
+
+        public IEnumerable<Athlete> GetAllByCompetitionId(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

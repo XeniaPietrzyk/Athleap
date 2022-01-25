@@ -1,5 +1,5 @@
 ﻿using MVC.Model;
-using MVC.Repository;
+using MVC.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

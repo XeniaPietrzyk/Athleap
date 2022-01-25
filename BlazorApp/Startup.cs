@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVC.Model;
 using MVC.Repository;
+using MVC.Repository.Interface;
 
 namespace BlazorApp
 {
@@ -29,10 +30,11 @@ namespace BlazorApp
             //add db in-memory context by DependencyInjection
             //services.AddScoped<ITrainerRepository, TrainersIMRepository>();
             services.AddScoped<IAthleteRepository, AthletesIMRepository>();
-
+            services.AddScoped<ICompetitionRepository, CompetitionsIMRepository>();
             //add services context by DI
             //services.AddTransient<IEmployeeRepository<Trainer>, TrainersIMRepository>();
-            services.AddTransient<IEmployeeRepository<Athlete>, AthletesIMRepository>();
+            services.AddTransient<IBaseRepository<Athlete>, AthletesIMRepository>();
+            services.AddTransient<IBaseRepository<Competition>, CompetitionsIMRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

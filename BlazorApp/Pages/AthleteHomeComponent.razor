@@ -1,0 +1,75 @@
+﻿@page "/athletehome"
+
+@inject MVC.Repository.Interface.ICompetitionRepository _competitionRepository
+@inject MVC.Repository.Interface.IAthleteRepository _athleteRepository
+@inject NavigationManager _navManager
+
+<h3>Athlete Home</h3>
+
+<---->
+    header: TWOJ KLUB: NAZWA,  OPIS
+    TWÓJ TRENER: Imię i nazwisko
+</---->
+
+@if (competitions != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Term</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var competition in competitions)
+            {
+                buttonValue = "Sign up";
+                var exist = _competitionRepository.GetByAthleteId(athlete.Id, competition.Id);
+                if (exist == null)
+                 {
+                    buttonValue = "Sign off";
+                 }
+                <tr>
+                    <td>@competition.Term</td>
+                    <td>@competition.Name</td>
+                    <td>@competition.Description</td>
+                    <td><button type="button" @onclick="@(() => AddAthlete(competition))" id="addremove" class="btn btn-link" value="@buttonValue"></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Competition> competitions;
+
+    private Athlete athlete;
+    private string buttonValue;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        competitions = _competitionRepository.GetAll()?.ToList();
+    }
+
+    private void AddAthlete(Competition competition)
+    {
+
+        //TODO: sprawdzic, czy aktywny uzytkownik jest zapisany do zawodow (czy zawiera Competition)
+        //jesli nie:
+        //po kliknieciu: dodac się (aktywnego uzytkownika) do zawodow
+        //dodac zawody do zawodnika
+        //jesli tak:
+        // zmienic tresc przycisku na "wycofaj"
+        //po kliknieciu: usunac sie (aktywnego uzytkownika) z zawodow
+        //usunac z zawodnika zawody
+    }
+
+}

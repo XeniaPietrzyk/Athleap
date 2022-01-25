@@ -19,14 +19,13 @@ namespace MVC.Model
         [StringLength(64, ErrorMessage = "Last name cannot be longer than 64 characters.")]
         public string LastName { get; set; }
 
-        //[Required(ErrorMessage ="Pesel is required.")]
-        //[MinLength(11, ErrorMessage = "PESEL length must be 11 characters.")]
-        //[MaxLength(11, ErrorMessage = "PESEL length must be 11 characters.")]
-        //public int Pesel { get; set; }
-
+        public string Avatar { get; set; }
+         
         [Required(ErrorMessage = "Email is required.")]
         public string eMail { get; set; }
         public EmployeeType Type { get; set; }
+
+        public List<Competition> Competition { get; set; }
 
         public User User { get; set; }
 

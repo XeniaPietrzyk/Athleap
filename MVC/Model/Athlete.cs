@@ -10,8 +10,8 @@ namespace MVC.Model
     [Table("Athlete")]
     public class Athlete : Employee
     {
-        public Trainer Trainer { get; set; }
-        public List<Competition> Competition { get; set; }
+        public string Area { get; set; }
+        public Trainer Trainer { get; set; }        
         public List<CompetitionResults> CompetitionResults { get; set; }
     }
 }

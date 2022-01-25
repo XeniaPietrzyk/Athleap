@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC.Model;
-using MVC.Repository;
+using MVC.Repository.Interface;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ namespace MVC.Controller
     {
         private readonly IAthleteRepository _athleteRepository;
         public AthleteController(IAthleteRepository athleteConfiguration)
-        {            
+        {
             _athleteRepository = athleteConfiguration;
         }
 
@@ -44,7 +44,7 @@ namespace MVC.Controller
         {
             try
             {
-                return _athleteRepository.GetByCompetitionId(id);
+                return _athleteRepository.GetAllByCompetitionId(id);
             }
             catch (Exception)
             {
@@ -53,11 +53,11 @@ namespace MVC.Controller
             }
         }
 
-        public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid id)
+        public IEnumerable<CompetitionResults> GetCompetitionResultsByCompetition(Guid id, Guid competitnionId)
         {
             try
             {
-                return _athleteRepository.GetCompetitionResultsByCompetition(id);
+                return _athleteRepository.GetCompetitionResultsByCompetition(id, competitnionId);
             }
             catch (Exception)
             {
