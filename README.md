@@ -8,7 +8,7 @@
 + GUI - Blazor
 + DB - {work in progress}
 
-Functionalities:
+**Functionalities:**
 - creating a coach or athlete account
 - coach: creating sports competitions (name, date, description)
 - coach: add and evaluate the athlete's performance in the competition
