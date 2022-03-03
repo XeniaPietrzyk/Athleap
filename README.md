@@ -1,6 +1,5 @@
-# Athleap
+# Athleap (WIP)
 *student's project*  
-**WIP**
 
 **Athletes' sports club management system.**  
 
